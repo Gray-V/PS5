@@ -1,5 +1,3 @@
-# pet_game.py
-
 from pet_logic import Dog, Cat, Hamster
 import time
 
@@ -15,13 +13,13 @@ def choose_pet():
         name = input("What will you name your pet? ")
 
         if choice == "1":
-            print(f"\n🎉 You adopted a dog named {name}!")
+            print(f"\n You adopted a dog named {name}!")
             return Dog(name)
         elif choice == "2":
-            print(f"\n🎉 You adopted a cat named {name}!")
+            print(f"\n You adopted a cat named {name}!")
             return Cat(name)
         elif choice == "3":
-            print(f"\n🎉 You adopted a hamster named {name}!")
+            print(f"\n You adopted a hamster named {name}!")
             return Hamster(name)
         else:
             print("Invalid option. Please choose 1, 2, or 3.")

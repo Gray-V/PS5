@@ -4,14 +4,11 @@ import os
 from pet_logic import Dog, Cat, Hamster
 
 # TODO:
-# 1. Make significant changes to the code below
-# 2. Add comments to explain what you did
-#---------- Comments here ----------#
-#
-#
-#
-#-----------------------------------#
-# 3. Have fun with your pet!
+# 1. Change the caption of your game to a new fun name (5 points)
+# 2. Change the image of one of the pets to a new one (10 points)
+# 3. Add a new Background image to the game (10 points)
+# 3. Make the game look nicer by adding in some colors and styles (15 points)
+# 4. EXTRA CREDIT: Add a new pet to the game (10 points)
 
 
 # --- Setup ---

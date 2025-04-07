@@ -1,44 +1,80 @@
-# test_pet_logic.py
-
 import pytest
-from pet_logic import Dog, Cat, Hamster, BasePet
+from pet_logic import BasePet, Dog, Cat, Hamster
 
-def test_dog_inherits_basepet():
-    d = Dog("Rex")
-    assert isinstance(d, BasePet)
-    assert d.species == "dog"
-    assert d.name == "Rex"
+# Test the BasePet constructor
+def test_constructor():
+    pet = BasePet("Buddy", "lizard")
+    assert pet.name == "Buddy"
+    assert pet.species == "lizard"
+    assert pet.hunger == 5
+    assert pet.happiness == 5
 
-def test_dog_play_increases_happiness():
-    d = Dog("Rex")
-    old_happiness = d.happiness
-    d.play()
-    assert d.happiness == min(10, old_happiness + 3)
+# Test the feed() method on BasePet
+def test_feed():
+    pet = BasePet("Buddy", "lizard")
+    pet.hunger = 6
+    pet.feed()
+    assert pet.hunger == 4
+    pet.feed()
+    assert pet.hunger == 2
+    pet.feed()
+    assert pet.hunger == 0
+    pet.feed()  # Should not go below 0
+    assert pet.hunger == 0
 
-def test_cat_play_random():
-    c = Cat("Luna")
-    # Run multiple times to catch both branches of randomness
-    happy_results = set()
-    for _ in range(10):
-        c.happiness = 5
-        c.play()
-        happy_results.add(c.happiness)
-    assert 4 in happy_results or 7 in happy_results
+# Test the play() method on BasePet
+def test_play():
+    pet = BasePet("Buddy", "lizard")
+    pet.happiness = 8
+    pet.play()
+    assert pet.happiness == 10
+    pet.play()  # Should not go above 10
+    assert pet.happiness == 10
 
-def test_hamster_play_behavior():
-    h = Hamster("Nibbles")
-    old_happiness = h.happiness
-    old_hunger = h.hunger
-    h.play()
-    assert h.happiness == min(10, old_happiness + 1)
-    assert h.hunger == old_hunger + 1
+# Test Dog's play() method
+def test_dog_play():
+    dog = Dog("Rex")
+    dog.happiness = 5
+    dog.play()
+    assert dog.happiness == 8
+    dog.play()
+    assert dog.happiness == 10
 
-def test_tick_and_feed():
-    p = Dog("Shadow")
-    p.hunger = 5
-    p.happiness = 5
-    p.tick()
-    assert p.hunger == 6
-    assert p.happiness == 4
-    p.feed()
-    assert p.hunger == 4
+# Test Dog's speak() method
+def test_dog_speak():
+    dog = Dog("Rex")
+    assert dog.speak() == "Rex says: Woof!"
+
+# Test Cat's play() with monkeypatch to force outcome
+def test_cat_play_happy(monkeypatch):
+    cat = Cat("Whiskers")
+    cat.happiness = 5
+    monkeypatch.setattr("random.random", lambda: 1.0)
+    cat.play()
+    assert cat.happiness == 7
+
+def test_cat_play_ignore(monkeypatch):
+    cat = Cat("Whiskers")
+    cat.happiness = 5
+    monkeypatch.setattr("random.random", lambda: 0.0)
+    cat.play()
+    assert cat.happiness == 4
+
+# Test Cat's speak() method
+def test_cat_speak():
+    cat = Cat("Whiskers")
+    assert cat.speak() == "Whiskers says: Meow."
+
+# Test Hamster's play() method
+def test_hamster_play():
+    hamster = Hamster("Nibbles")
+    hamster.hunger = 3
+    hamster.happiness = 4
+    hamster.play()
+    assert hamster.hunger == 4
+    assert hamster.happiness == 5
+
+# Test Hamster's speak() method
+def test_hamster_speak():
+    hamster = Hamster("Nibbles")
+    assert hamster.speak() == "Nibbles squeaks excitedly!"
