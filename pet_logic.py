@@ -83,7 +83,7 @@ class Cat(BasePet):
     def speak(self):
         # TODO: 
         # Cats meow when they speak
-        # Return a string that says "name says: Meow!"
+        # Return a string that says "name says: Meow."
         # Make sure the name is the pet's name
         return None
 

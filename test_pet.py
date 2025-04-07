@@ -72,9 +72,9 @@ def test_hamster_play():
     hamster.happiness = 4
     hamster.play()
     assert hamster.hunger == 4
-    assert hamster.happiness == 5
+    assert hamster.happiness == 6
 
 # Test Hamster's speak() method
 def test_hamster_speak():
     hamster = Hamster("Nibbles")
-    assert hamster.speak() == "Nibbles squeaks excitedly!"
+    assert hamster.speak() == "Nibbles says: Squeak!"
